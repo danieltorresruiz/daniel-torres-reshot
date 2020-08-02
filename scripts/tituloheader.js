@@ -3,6 +3,23 @@ class TituloHeader extends React.Component {
         super(props);
     }
 
+    obtenerFechaInicio() {
+        return this.obtenerFecha(this.props.fechainicio);
+    }
+
+    obtenerFechaFin() {
+        return this.obtenerFecha(this.props.fechafin);
+    }
+
+    obtenerFecha(fechaDate) {
+        if (fechaDate !== '') {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' }
+            const fecha = fechaDate.toLocaleDateString("es-ES", options);
+            return <b>{fecha}</b>;
+        }
+        return null;
+    }
+
     render() {
       return (
         <div class="row presentation titulo-header"> 
@@ -10,10 +27,10 @@ class TituloHeader extends React.Component {
                 <h3>{this.props.titulo}</h3>
             </div>
             <div class="col-lg-4 col-md-4">
-                {this.props.diainicio} <b>{this.props.fechainicio}</b>
+                {this.props.diainicio} {this.obtenerFechaInicio()}
             </div>
             <div class="col-lg-4 col-md-4">
-                {this.props.diafin} <b>{this.props.fechafin}</b>
+                {this.props.diafin} {this.obtenerFechaFin()}
             </div>
         </div>
       ); 

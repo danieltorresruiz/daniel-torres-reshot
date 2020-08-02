@@ -8,22 +8,19 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      titulo: "Hoteles",
-      diaentrada: "selecciona la fecha de entrada",
-      fechaentrada: "",
-      diasalida: "selecciona la fecha de salida",
-      fechasalida: ""
+      titulo: 'Hoteles',
+      diaentrada: 'selecciona la fecha de entrada',
+      fechaentrada: '',
+      diasalida: 'selecciona la fecha de salida',
+      fechasalida: ''
     };
     this.handleFechaEntrada = this.handleFechaEntrada.bind(this);
     this.handleFechaSalida = this.handleFechaSalida.bind(this);
   }
   
   handleFechaEntrada(e) {
-    const fechaInput = e.target.value;
-    const fechaDate = obtenerFechaZonaHoraria(fechaInput);
-    const options = { year: 'numeric', month: 'long', day: 'numeric' }
-    const fechaentrada = fechaDate.toLocaleDateString("es-ES", options);
-    const diaentrada = obtenerDiaEspanol("desde el ", fechaDate);
+    const fechaentrada = obtenerFechaZonaHoraria(e.target.value);
+    const diaentrada = obtenerDiaEspanol("desde el ", fechaentrada);
     this.setState({
       fechaentrada,
       diaentrada
@@ -31,11 +28,8 @@ class App extends React.Component {
   }
 
   handleFechaSalida(e) {
-    const fechaInput = e.target.value;
-    const fechaDate = obtenerFechaZonaHoraria(fechaInput);
-    const options = { year: 'numeric', month: 'long', day: 'numeric' }
-    const fechasalida = fechaDate.toLocaleDateString("es-ES", options);
-    const diasalida = obtenerDiaEspanol("hasta el ", fechaDate);
+    const fechasalida = obtenerFechaZonaHoraria(e.target.value);
+    const diasalida = obtenerDiaEspanol("hasta el ", fechasalida);
     this.setState({
       fechasalida,
       diasalida
@@ -55,7 +49,6 @@ class App extends React.Component {
           />
           <Filtros handleFechaEntrada={this.handleFechaEntrada} handleFechaSalida={this.handleFechaSalida} />
         </Contenedor>
-        
       </div>
     );
   }
