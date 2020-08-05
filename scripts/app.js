@@ -1,8 +1,7 @@
 import Contenedor from './contenedor.js';
 import TituloHeader from './tituloheader.js';
 import Filtros from './filtros.js';
-import {obtenerDiaEspanol} from './funcionesfiltros.js';
-import {obtenerFechaZonaHoraria} from './funcionesfiltros.js';
+import CardHotel from './cardhotel.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,8 +18,8 @@ class App extends React.Component {
   }
   
   handleFechaEntrada(e) {
-    const fechaentrada = obtenerFechaZonaHoraria(e.target.value);
-    const diaentrada = obtenerDiaEspanol("desde el ", fechaentrada);
+    const fechaentrada = Filtros.obtenerFechaZonaHoraria(e.target.value);
+    const diaentrada = TituloHeader.obtenerDiaEspanol("desde el ", fechaentrada);
     this.setState({
       fechaentrada,
       diaentrada
@@ -28,8 +27,8 @@ class App extends React.Component {
   }
 
   handleFechaSalida(e) {
-    const fechasalida = obtenerFechaZonaHoraria(e.target.value);
-    const diasalida = obtenerDiaEspanol("hasta el ", fechasalida);
+    const fechasalida = Filtros.obtenerFechaZonaHoraria(e.target.value);
+    const diasalida = TituloHeader.obtenerDiaEspanol("hasta el ", fechasalida);
     this.setState({
       fechasalida,
       diasalida
@@ -48,6 +47,7 @@ class App extends React.Component {
             fechafin={this.state.fechasalida}
           />
           <Filtros handleFechaEntrada={this.handleFechaEntrada} handleFechaSalida={this.handleFechaSalida} />
+          <CardHotel />
         </Contenedor>
       </div>
     );

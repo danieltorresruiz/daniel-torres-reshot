@@ -1,14 +1,18 @@
 class TituloHeader extends React.Component {
+    static obtenerDiaEspanol(prefijo, fecha) {
+        const DAYS = {
+                       "days": [
+                         "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"
+                       ]
+                     }
+        const DIAS_SEMANA = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"];
+        const dayWeek = fecha.toString().substring(0,3);
+        const index = DAYS.days.indexOf(dayWeek);
+        return prefijo + DIAS_SEMANA[index] + ",";
+    }
+    
     constructor(props) {
         super(props);
-    }
-
-    obtenerFechaInicio() {
-        return this.obtenerFecha(this.props.fechainicio);
-    }
-
-    obtenerFechaFin() {
-        return this.obtenerFecha(this.props.fechafin);
     }
 
     obtenerFecha(fechaDate) {
@@ -27,10 +31,10 @@ class TituloHeader extends React.Component {
                 <h3>{this.props.titulo}</h3>
             </div>
             <div class="col-lg-4 col-md-4">
-                {this.props.diainicio} {this.obtenerFechaInicio()}
+                {this.props.diainicio} {this.obtenerFecha(this.props.fechainicio)}
             </div>
             <div class="col-lg-4 col-md-4">
-                {this.props.diafin} {this.obtenerFechaFin()}
+                {this.props.diafin} {this.obtenerFecha(this.props.fechafin)}
             </div>
         </div>
       ); 
