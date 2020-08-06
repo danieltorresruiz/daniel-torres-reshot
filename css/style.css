@@ -215,15 +215,20 @@ a img {
 	4. SERVICES SECTION STRUCTURE
 ################################################################# */
 
-.services-bordered {
-	padding: 30px 15px;
-	border: 3px double;
+.simple-bordered {
+	padding: 3px 3px;
+	margin-bottom: 3px;
 	border-color: #e8e8e8;
 }
 
-.services-bordered h4 {
+.simple-bordered h4 {
+	padding: 10px;
 	color: #A79A74;
 	font-size: 16px;
+}
+
+.services-bordered {
+	border-color: #e8e8e8;
 }
 
 .large-icon {
@@ -679,6 +684,11 @@ sup {
 	padding-bottom: 20px;
 }
 
+.titulo-footer {
+	padding-bottom: 20px;
+	padding-left: 30px;
+}
+
 .fondo-fitros {
 	background-color: #a0cdf3;
 	padding-top: 12px;
@@ -703,3 +713,20 @@ sup {
 	padding: 10px; 
 	text-align: center; 
 } 
+
+.foto-hotel {
+	height: 260px;
+	width: 100%;
+	margin-bottom: 20px;
+	box-shadow: -3px 3px 2px -1px rgba(0, 0, 0, 0.4);
+}
+
+.descripcion-hotel {
+	color: #0c0101;
+	font-size: 0.9rem;
+	font-family: 'Roboto Slab',Arial,sans-serif;
+}
+
+.mt1-padding {
+	padding: 30px;
+}

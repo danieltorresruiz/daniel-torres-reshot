@@ -2,6 +2,8 @@ import Contenedor from './contenedor.js';
 import TituloHeader from './tituloheader.js';
 import Filtros from './filtros.js';
 import CardHotel from './cardhotel.js';
+import ListaHoteles from './listahoteles.js';
+import Footer from './footer.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,31 +13,32 @@ class App extends React.Component {
       diaentrada: 'selecciona la fecha de entrada',
       fechaentrada: '',
       diasalida: 'selecciona la fecha de salida',
-      fechasalida: ''
+      fechasalida: '',
+      hoteles: []
     };
     this.handleFechaEntrada = this.handleFechaEntrada.bind(this);
     this.handleFechaSalida = this.handleFechaSalida.bind(this);
   }
-  
+
+  componentDidMount() {
+    const hoteles = ListaHoteles.obtenerListadoHoteles();
+    this.setState({ hoteles });
+  }
+
   handleFechaEntrada(e) {
     const fechaentrada = Filtros.obtenerFechaZonaHoraria(e.target.value);
     const diaentrada = TituloHeader.obtenerDiaEspanol("desde el ", fechaentrada);
-    this.setState({
-      fechaentrada,
-      diaentrada
-    });
+    this.setState({ fechaentrada, diaentrada });
   }
 
   handleFechaSalida(e) {
     const fechasalida = Filtros.obtenerFechaZonaHoraria(e.target.value);
     const diasalida = TituloHeader.obtenerDiaEspanol("hasta el ", fechasalida);
-    this.setState({
-      fechasalida,
-      diasalida
-    });
+    this.setState({ fechasalida, diasalida });
   }
 
   render() {
+    console.log("hoteles " + this.state.hoteles);
     return (
       <div>
         <Contenedor>
@@ -47,7 +50,10 @@ class App extends React.Component {
             fechafin={this.state.fechasalida}
           />
           <Filtros handleFechaEntrada={this.handleFechaEntrada} handleFechaSalida={this.handleFechaSalida} />
-          <CardHotel />
+          <ListaHoteles>
+            <CardHotel hoteles={this.state.hoteles} />
+          </ListaHoteles>
+          <Footer />
         </Contenedor>
       </div>
     );

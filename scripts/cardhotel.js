@@ -5,44 +5,23 @@ class CardHotel extends React.Component {
 
     render() {
       return (
-        <div class="row mt2">
-            <div class="col-md-4 services-bordered">
+        <React.Fragment>
+          {
+           this.props.hoteles.map(hotel => (
+              <div class="col-md-4 services-bordered">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 services-bordered">
-                        <h4>WEB DESIGN 2</h4>
-                        <p>Sed in porttitor dolor.</p>
+                    <div class="col-lg-11 col-md-11 simple-bordered">
+                      <img className="foto-hotel" src={hotel.photo} alt={hotel.slug} />
+                      <h4>{hotel.name}</h4>
                     </div>
                 </div>
-                <div class="row">
-                <div class="col-md-4 services-bordered">
-                    <h4>GRAPHICS DESIGN</h4>
-                </div>
-                <div class="col-md-4 services-bordered">
-                    <h4>GRAPHICS DESIGN</h4>
-                </div>
-                <div class="col-md-4 services-bordered">
-                    <h4>GRAPHICS DESIGN</h4>
-                </div>
-                </div>
-                <p>Sed in porttitor dolor. Sed eleifend vulputate nulla, congue iaculis arcu mattis porta.</p>
-          </div>
-          <div class="col-md-4 services-bordered">
-            <h4>WEB DESIGN</h4>
-            <p>Sed in porttitor dolor. Sed eleifend vulputate nulla, congue iaculis arcu mattis porta.</p>
-          </div>
-          <div class="col-md-4 services-bordered">
-            <h4>CODING</h4>
-            <p>Sed in porttitor dolor. Sed eleifend vulputate nulla, congue iaculis arcu mattis porta.</p>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-                <p> ----------------------------------------------------------------
-                    ----------------------------------------------------------------
-                    ----------------------------------------------------------------
-                </p>
-            </div>
-          </div>
-      </div>
+                <p class="descripcion-hotel">{hotel.description}</p>
+                <p class="descripcion-hotel">{hotel.city}, {hotel.country}</p>
+                <p class="descripcion-hotel">{hotel.rooms} Habitaciones</p>
+              </div>
+            ))
+          }
+      </React.Fragment>
       ); 
     }
   }

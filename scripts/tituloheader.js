@@ -1,4 +1,9 @@
 class TituloHeader extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     static obtenerDiaEspanol(prefijo, fecha) {
         const DAYS = {
                        "days": [
@@ -9,10 +14,6 @@ class TituloHeader extends React.Component {
         const dayWeek = fecha.toString().substring(0,3);
         const index = DAYS.days.indexOf(dayWeek);
         return prefijo + DIAS_SEMANA[index] + ",";
-    }
-    
-    constructor(props) {
-        super(props);
     }
 
     obtenerFecha(fechaDate) {
