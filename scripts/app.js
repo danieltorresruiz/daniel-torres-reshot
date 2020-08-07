@@ -4,6 +4,7 @@ import Filtros from './filtros.js';
 import CardHotel from './cardhotel.js';
 import ListaHoteles from './listahoteles.js';
 import Footer from './footer.js';
+import Reservar from './reservar.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -51,7 +52,9 @@ class App extends React.Component {
           />
           <Filtros handleFechaEntrada={this.handleFechaEntrada} handleFechaSalida={this.handleFechaSalida} />
           <ListaHoteles>
-            <CardHotel hoteles={this.state.hoteles} />
+            <CardHotel hoteles={this.state.hoteles}>
+              <Reservar />
+            </CardHotel>
           </ListaHoteles>
           <Footer />
         </Contenedor>
