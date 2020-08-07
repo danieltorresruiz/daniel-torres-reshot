@@ -29,7 +29,7 @@ class Filtros extends React.Component {
                         onChange={this.props.handleFechaEntrada}/>  
                 </div>
             </div>
-                <div class="form-group col-md-3">
+            <div class="form-group col-md-3">
                 <div class="input-icons">
                     <i class="fas fa-reply"></i>
                     <input class="form-control input-field" type="date"
@@ -39,21 +39,36 @@ class Filtros extends React.Component {
             <div class="form-group col-md-2">
                 <div class="input-icons">
                     <i class="fas fa-globe"></i>
-                    <select class="form-control input-field" name="" id="">
+                    <select id="paises" class="form-control input-select">
+                        <option value="Todos">Todos los países</option>
+                        <option value="argentina">Argentina</option>
+                        <option value="brasil">Brasil</option>
+                        <option value="chile">Chile</option>
+                        <option value="uruguay">Uruguay</option>
+                        <option value="colombia">Colombia</option>
                     </select>
                 </div>
             </div>
             <div class="form-group col-md-2">
                 <div class="input-icons">
                     <i class="fas fa-dollar-sign"></i>
-                    <select class="form-control input-field" name="" id="">
+                    <select id="precio" class="form-control input-select" >
+                        <option value="Todos">Cualquier precio</option>
+                        <option value="p1">$</option>
+                        <option value="p2">$$</option>
+                        <option value="p3">$$$</option>
+                        <option value="p4">$$$$</option>
                     </select>
                 </div>
             </div>
             <div class="form-group col-md-2">
                 <div class="input-icons">
                     <i class="fas fa-bed"></i>
-                    <select class="form-control input-field" name="" id="">
+                    <select id="habitacion" class="form-control input-select2">
+                        <option value="Todos">Cualquier tamaño</option>
+                        <option value="hp">Hotel pequeño</option>
+                        <option value="hm">Hotel mediano</option>
+                        <option value="hg">Hotel grande</option>
                     </select>
                 </div>
               </div>      

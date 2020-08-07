@@ -5,6 +5,7 @@ import CardHotel from './cardhotel.js';
 import ListaHoteles from './listahoteles.js';
 import Footer from './footer.js';
 import Reservar from './reservar.js';
+import HeaderHotel from './headerhotel.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -39,12 +40,11 @@ class App extends React.Component {
   }
 
   render() {
-    console.log("hoteles " + this.state.hoteles);
     return (
       <div>
         <Contenedor>
           <TituloHeader
-            titulo="Hoteles"
+            titulo="Hoteles Descansar.com"
             diainicio={this.state.diaentrada}
             fechainicio={this.state.fechaentrada}
             diafin={this.state.diasalida}
@@ -52,9 +52,14 @@ class App extends React.Component {
           />
           <Filtros handleFechaEntrada={this.handleFechaEntrada} handleFechaSalida={this.handleFechaSalida} />
           <ListaHoteles>
-            <CardHotel hoteles={this.state.hoteles}>
-              <Reservar />
-            </CardHotel>
+            <CardHotel hoteles={this.state.hoteles} 
+              header={
+                <HeaderHotel />
+              }
+              reservar={
+                <Reservar />
+              }
+            />
           </ListaHoteles>
           <Footer />
         </Contenedor>

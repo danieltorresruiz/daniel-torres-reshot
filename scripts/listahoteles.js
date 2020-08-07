@@ -16,7 +16,8 @@ class ListaHoteles extends React.Component {
               rooms: 11,
               city: 'Buenos Aires',
               country: 'Argentina',
-              price: 4
+              price: 4,
+              precio: 400
             },
             {
               slug: 'sainte-jeanne',
@@ -28,7 +29,8 @@ class ListaHoteles extends React.Component {
               rooms: 23,
               city: 'Mar del Plata',
               country: 'Argentina',
-              price: 2
+              price: 2,
+              precio: 200
             },
             {
               slug: 'entre-cielos',
@@ -40,7 +42,8 @@ class ListaHoteles extends React.Component {
               rooms: 16,
               city: 'Mendoza',
               country: 'Argentina',
-              price: 4
+              price: 4,
+              precio: 400
             },
             {
               slug: 'huacalera',
@@ -52,7 +55,8 @@ class ListaHoteles extends React.Component {
               rooms: 32,
               city: 'Jujuy',
               country: 'Argentina',
-              price: 1
+              price: 1,
+              precio: 100
             },
             {
               slug: 'merced-del-alto',
@@ -64,7 +68,8 @@ class ListaHoteles extends React.Component {
               rooms: 14,
               city: 'Salta',
               country: 'Argentina',
-              price: 2
+              price: 2,
+              precio: 200
             },
             {
               slug: 'azur-real',
@@ -76,7 +81,8 @@ class ListaHoteles extends React.Component {
               rooms: 16,
               city: 'Córdoba',
               country: 'Argentina',
-              price: 1
+              price: 1,
+              precio: 100
             },
             {
               slug: 'rincon-del-socorro',
@@ -88,7 +94,8 @@ class ListaHoteles extends React.Component {
               rooms: 11,
               city: 'Corrientes',
               country: 'Argentina',
-              price: 2
+              price: 2,
+              precio: 200
             },
             {
               slug: 'luma-casa-de-montana',
@@ -100,7 +107,8 @@ class ListaHoteles extends React.Component {
               rooms: 8,
               city: 'Villa La Angostura',
               country: 'Argentina',
-              price: 2
+              price: 2,
+              precio: 200
             },
             {
               slug: 'casa-turquesa',
@@ -112,7 +120,8 @@ class ListaHoteles extends React.Component {
               rooms: 9,
               city: 'Río de Janeiro',
               country: 'Brasil',
-              price: 3
+              price: 3,
+              precio: 300
             },
             {
               slug: 'vila-da-santa',
@@ -124,7 +133,8 @@ class ListaHoteles extends React.Component {
               rooms: 19,
               city: 'Buzios',
               country: 'Brasil',
-              price: 3
+              price: 3,
+              precio: 300
             },
             {
               slug: 'uxua-casa',
@@ -136,7 +146,8 @@ class ListaHoteles extends React.Component {
               rooms: 11,
               city: 'Bahía',
               country: 'Brasil',
-              price: 4
+              price: 4,
+              precio: 400
             },
             {
               slug: 'ponta-dos-ganchos',
@@ -148,7 +159,8 @@ class ListaHoteles extends React.Component {
               rooms: 25,
               city: 'Santa Catarina',
               country: 'Brasil',
-              price: 4
+              price: 4,
+              precio: 400
             },
             {
               slug: 'alto-atacama',
@@ -160,7 +172,8 @@ class ListaHoteles extends React.Component {
               rooms: 42,
               city: 'San Pedro de Atacama',
               country: 'Chile',
-              price: 4
+              price: 4,
+              precio: 400
             },
             {
               slug: 'tierra-patagonia',
@@ -172,7 +185,8 @@ class ListaHoteles extends React.Component {
               rooms: 40,
               city: 'Torres del Paine',
               country: 'Chile',
-              price: 4
+              price: 4,
+              precio: 400
             },
             {
               slug: 'vira-vira',
@@ -184,7 +198,8 @@ class ListaHoteles extends React.Component {
               rooms: 21,
               city: 'Pucón',
               country: 'Chile',
-              price: 4
+              price: 4,
+              precio: 400
             },
             {
               slug: 'vik-chile',
@@ -196,7 +211,8 @@ class ListaHoteles extends React.Component {
               rooms: 22,
               city: 'Millahue',
               country: 'Chile',
-              price: 4
+              price: 4,
+              precio: 400
             },
             {
               slug: 'casa-higueras',
@@ -208,7 +224,8 @@ class ListaHoteles extends React.Component {
               rooms: 20,
               city: 'Valparaíso',
               country: 'Chile',
-              price: 4
+              price: 4,
+              precio: 400
             },
             {
               slug: 'campo-tinto',
@@ -220,7 +237,8 @@ class ListaHoteles extends React.Component {
               rooms: 4,
               city: 'Colonia',
               country: 'Uruguay',
-              price: 1
+              price: 1,
+              precio: 100
             }
         ];
         return hotelsData;      

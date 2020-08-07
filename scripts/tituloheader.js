@@ -27,17 +27,22 @@ class TituloHeader extends React.Component {
 
     render() {
       return (
-        <div class="row presentation titulo-header"> 
-            <div class="col-lg-4 col-md-4">
-                <h3>{this.props.titulo}</h3>
+        <React.Fragment>
+            <div class="row presentation titulo-header"> 
+                <div class="col-lg-4 col-md-4">
+                    <h3>{this.props.titulo}</h3>
+                </div>
+                <div class="col-lg-4 col-md-4 texto-dias">
+                    {this.props.diainicio} {this.obtenerFecha(this.props.fechainicio)}
+                </div>
+                <div class="col-lg-4 col-md-4 texto-dias">
+                    {this.props.diafin} {this.obtenerFecha(this.props.fechafin)}
+                </div>
+                <div class="col-lg-4 col-md-4 texto-dias">&nbsp;</div>
+                <div class="col-lg-4 col-md-4 texto-dias">---</div>
+                <div class="col-lg-4 col-md-4 texto-dias">---</div>
             </div>
-            <div class="col-lg-4 col-md-4">
-                {this.props.diainicio} {this.obtenerFecha(this.props.fechainicio)}
-            </div>
-            <div class="col-lg-4 col-md-4">
-                {this.props.diafin} {this.obtenerFecha(this.props.fechafin)}
-            </div>
-        </div>
+        </React.Fragment>
       ); 
     }
   }
