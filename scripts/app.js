@@ -6,6 +6,7 @@ import ListaHoteles from './listahoteles.js';
 import Footer from './footer.js';
 import Reservar from './reservar.js';
 import HeaderHotel from './headerhotel.js';
+import InfoPrincipalHotel from './infoprincipalhotel.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -39,22 +40,33 @@ class App extends React.Component {
     this.setState({ fechasalida, diasalida });
   }
 
+  actualizarHotelesFiltrados(hoteles) {
+    this.setState({ hoteles });
+  }
+
   render() {
     return (
       <div>
         <Contenedor>
           <TituloHeader
-            titulo="Hoteles Descansar.com"
+            titulo='Hoteles Descansar.com'
             diainicio={this.state.diaentrada}
             fechainicio={this.state.fechaentrada}
             diafin={this.state.diasalida}
             fechafin={this.state.fechasalida}
           />
-          <Filtros handleFechaEntrada={this.handleFechaEntrada} handleFechaSalida={this.handleFechaSalida} />
+          <Filtros hoteles={this.state.hoteles}
+            actualizar={this.actualizarHotelesFiltrados}
+            handleFechaEntrada={this.handleFechaEntrada}
+            handleFechaSalida={this.handleFechaSalida}
+          />
           <ListaHoteles>
-            <CardHotel hoteles={this.state.hoteles} 
+            <CardHotel hoteles={this.state.hoteles}
               header={
                 <HeaderHotel />
+              }
+              principal={
+                <InfoPrincipalHotel />
               }
               reservar={
                 <Reservar />
