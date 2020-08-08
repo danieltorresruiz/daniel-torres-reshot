@@ -17,15 +17,17 @@ class App extends React.Component {
       fechaentrada: '',
       diasalida: 'selecciona la fecha de salida',
       fechasalida: '',
-      hoteles: []
+      hoteles: [],
+      hotelesCompletos: []
     };
     this.handleFechaEntrada = this.handleFechaEntrada.bind(this);
     this.handleFechaSalida = this.handleFechaSalida.bind(this);
   }
 
   componentDidMount() {
-    const hoteles = ListaHoteles.obtenerListadoHoteles();
-    this.setState({ hoteles });
+    const hotelesCompletos = ListaHoteles.obtenerListadoHoteles();
+    const hoteles =  hotelesCompletos.map((h) => h);
+    this.setState({ hotelesCompletos, hoteles });
   }
 
   handleFechaEntrada(e) {
@@ -56,6 +58,7 @@ class App extends React.Component {
             fechafin={this.state.fechasalida}
           />
           <Filtros hoteles={this.state.hoteles}
+            hotelesCompletos={this.state.hotelesCompletos}
             actualizar={this.actualizarHotelesFiltrados}
             handleFechaEntrada={this.handleFechaEntrada}
             handleFechaSalida={this.handleFechaSalida}
