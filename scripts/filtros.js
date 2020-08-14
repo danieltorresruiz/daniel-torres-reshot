@@ -1,4 +1,7 @@
 class Filtros extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
     static obtenerFechaZonaHoraria(fechaInput) {
             const now = new Date();
@@ -13,10 +16,6 @@ class Filtros extends React.Component {
     static getTimeZone(now) {
         const offset = now.getTimezoneOffset(), o = Math.abs(offset);
         return (offset < 0 ? "+" : "-") + ("" + Math.floor(o / 60)).slice(-2);
-    }
-  
-    constructor(props) {
-        super(props);
     }
 
     render() {
@@ -39,36 +38,39 @@ class Filtros extends React.Component {
             <div class="form-group col-md-2">
                 <div class="input-icons">
                     <i class="fas fa-globe"></i>
-                    <select id="paises" class="form-control input-select">
-                        <option value="Todos">Todos los países</option>
-                        <option value="argentina">Argentina</option>
-                        <option value="brasil">Brasil</option>
-                        <option value="chile">Chile</option>
-                        <option value="uruguay">Uruguay</option>
-                        <option value="colombia">Colombia</option>
+                    <select id="pais" name="pais" class="form-control input-select"
+                        onChange={this.props.handleSelect}>
+                        <option value="todos">Todos los países</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Brasil">Brasil</option>
+                        <option value="Chile">Chile</option>
+                        <option value="Uruguay">Uruguay</option>
+                        <option value="Colombia">Colombia</option>
                     </select>
                 </div>
             </div>
             <div class="form-group col-md-2">
                 <div class="input-icons">
                     <i class="fas fa-dollar-sign"></i>
-                    <select id="precio" class="form-control input-select" >
-                        <option value="Todos">Cualquier precio</option>
-                        <option value="p1">$</option>
-                        <option value="p2">$$</option>
-                        <option value="p3">$$$</option>
-                        <option value="p4">$$$$</option>
+                    <select id="precio" name="precio" class="form-control input-select"
+                        onChange={this.props.handleSelect}>
+                        <option value="todos">Cualquier precio</option>
+                        <option value="PB">$</option>
+                        <option value="PM">$$</option>
+                        <option value="PA">$$$</option>
+                        <option value="VIP">$$$$</option>
                     </select>
                 </div>
             </div>
             <div class="form-group col-md-2">
                 <div class="input-icons">
                     <i class="fas fa-bed"></i>
-                    <select id="habitacion" class="form-control input-select2">
-                        <option value="Todos">Cualquier tamaño</option>
-                        <option value="hp">Hotel pequeño</option>
-                        <option value="hm">Hotel mediano</option>
-                        <option value="hg">Hotel grande</option>
+                    <select id="habitacion" name="habitacion" class="form-control input-select2"
+                        onChange={this.props.handleSelect}>
+                        <option value="todos">Cualquier tamaño</option>
+                        <option value="Hotel pequeño">Hotel pequeño</option>
+                        <option value="Hotel mediano">Hotel mediano</option>
+                        <option value="Hotel grande">Hotel grande</option>
                     </select>
                 </div>
               </div>      

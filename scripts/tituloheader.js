@@ -25,7 +25,39 @@ class TituloHeader extends React.Component {
         return null;
     }
 
+    esValido(val) {
+        return val && val !== 'todos';
+    }
+
+    traducirACosto(precio) {
+        switch (precio) {
+            case 'todos':
+                return '';
+            case 'PB':
+                return 'Costo Bajo';
+            case 'PM':
+                return 'Costo Promedio';
+            case 'PA':
+                return 'Costo Alto';
+            case 'VIP':
+                return 'Costo VIP';
+            default:
+                return precio;
+        }
+    }
+
+    getPaisPrecio(pais, precio) {
+        const separadorPais = pais ? ' - ' : '';
+        const costo = this.traducirACosto(precio);
+        const textoPrecio = costo !== '' ? 'Tipo precio: '.concat(costo) : '';
+        return pais.concat(separadorPais.concat(textoPrecio));
+    }
+
     render() {
+      const pais = this.esValido(this.props.pais) ? 'País: '.concat(this.props.pais) : '';
+      const joinPaisPrecio = this.props.precio ? this.getPaisPrecio(pais, this.props.precio) : pais;
+      const habitacion = this.props.habitacion && this.props.habitacion !== 'todos'
+                            ? 'Tamaño: '.concat(this.props.habitacion) : '';
       return (
         <React.Fragment>
             <div class="row presentation titulo-header"> 
@@ -39,8 +71,8 @@ class TituloHeader extends React.Component {
                     {this.props.diafin} {this.obtenerFecha(this.props.fechafin)}
                 </div>
                 <div class="col-lg-4 col-md-4 texto-dias">&nbsp;</div>
-                <div class="col-lg-4 col-md-4 texto-dias">---</div>
-                <div class="col-lg-4 col-md-4 texto-dias">---</div>
+                <div class="col-lg-4 col-md-4 texto-dias">{joinPaisPrecio}</div>
+                <div class="col-lg-4 col-md-4 texto-dias">{habitacion}</div>
             </div>
         </React.Fragment>
       ); 
