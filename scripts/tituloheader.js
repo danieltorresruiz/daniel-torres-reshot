@@ -70,7 +70,12 @@ class TituloHeader extends React.Component {
                 <div class="col-lg-4 col-md-4 texto-dias">
                     {this.props.diafin} {this.obtenerFecha(this.props.fechafin)}
                 </div>
-                <div class="col-lg-4 col-md-4 texto-dias">&nbsp;</div>
+                <div class="col-lg-4 col-md-4 texto-dias">
+                    <a class="trash c-pointer" onClick={this.props.eliminarFiltros}>
+                        <i class="far fa-trash-alt"></i>
+                        <span> Quitar filtros de búsqueda</span>
+                    </a>
+                </div>
                 <div class="col-lg-4 col-md-4 texto-dias">{joinPaisPrecio}</div>
                 <div class="col-lg-4 col-md-4 texto-dias">{habitacion}</div>
             </div>

@@ -26,32 +26,66 @@ class App extends React.Component {
     this.handleFechaEntrada = this.handleFechaEntrada.bind(this);
     this.handleFechaSalida = this.handleFechaSalida.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.recuperarHoteles = this.recuperarHoteles.bind(this);
   }
 
   componentDidMount() {
-    const hotelesCompletos = ListaHoteles.obtenerListadoHoteles();
-    const hoteles =  hotelesCompletos.map((h) => h);
-    this.setState({ hotelesCompletos, hoteles });
+    this.recuperarHoteles();
   }
 
   handleFechaEntrada(e) {
     const fechaentrada = Filtros.obtenerFechaZonaHoraria(e.target.value);
     const diaentrada = TituloHeader.obtenerDiaEspanol("desde el ", fechaentrada);
-    this.setState({ fechaentrada, diaentrada });
+    if (this.state.fechasalida) {
+      this.validarFechaEntrada(fechaentrada, diaentrada);
+    } else {
+      this.setState({ fechaentrada, diaentrada });
+    }
+  }
+
+  validarFechaEntrada(fechaentrada, diaentrada) {
+    if (fechaentrada > this.state.fechasalida) {
+      swal('La fecha de entrada no puede ser mayor a la fecha de salida.');
+      this.setState({ fechaentrada: '' });
+    } else {
+      this.setState({ fechaentrada, diaentrada });
+    }
   }
 
   handleFechaSalida(e) {
     const fechasalida = Filtros.obtenerFechaZonaHoraria(e.target.value);
     const diasalida = TituloHeader.obtenerDiaEspanol("hasta el ", fechasalida);
+    if (this.state.fechaentrada) {
+      this.validarFechaSalida(fechasalida, diasalida);
+    } else {
+      
     this.setState({ fechasalida, diasalida });
+    }
+  }
+
+  validarFechaSalida(fechasalida, diasalida) {
+    if (fechasalida < this.state.fechaentrada) {
+      swal('La fecha de salida no puede ser menor a la fecha de entrada.');
+      this.setState({ fechasalida: '' });
+    } else {
+      this.setState({ fechasalida, diasalida });
+    }
   }
 
   handleSelect(e) {
     this.setState({ [e.target.name]: e.target.value });
+    this.actualizarHotelesFiltrados(e.target.name, e.target.value);
   }
 
-  actualizarHotelesFiltrados(hoteles) {
+  actualizarHotelesFiltrados(opcion, valor,) {
+    const hoteles = Filtros.aplicarFiltros(opcion, valor, this.state.hoteles);
     this.setState({ hoteles });
+  }
+
+  recuperarHoteles() {
+    const hotelesCompletos = ListaHoteles.obtenerListadoHoteles();
+    const hoteles =  hotelesCompletos.map((h) => h);
+    this.setState({ hotelesCompletos, hoteles });
   }
 
   render() {
@@ -67,10 +101,9 @@ class App extends React.Component {
             pais={this.state.pais}
             precio={this.state.precio}
             habitacion={this.state.habitacion}
+            eliminarFiltros={this.recuperarHoteles}
           />
-          <Filtros hoteles={this.state.hoteles}
-            hotelesCompletos={this.state.hotelesCompletos}
-            actualizar={this.actualizarHotelesFiltrados}
+          <Filtros 
             handleFechaEntrada={this.handleFechaEntrada}
             handleFechaSalida={this.handleFechaSalida}
             handleSelect={this.handleSelect}

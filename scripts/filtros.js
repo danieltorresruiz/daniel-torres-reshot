@@ -1,3 +1,5 @@
+const HOTEL_HAB_PEQUENO = 10;
+const HOTEL_HAB_GRANDE = 25;
 class Filtros extends React.Component {
     constructor(props) {
         super(props);
@@ -13,9 +15,65 @@ class Filtros extends React.Component {
             const dia = fechaInput.substring(8,10);
             return new Date(anio, mes, dia, fechaHora.getHours(), fechaHora.getMinutes(), fechaHora.getSeconds());
     }
+
     static getTimeZone(now) {
         const offset = now.getTimezoneOffset(), o = Math.abs(offset);
         return (offset < 0 ? "+" : "-") + ("" + Math.floor(o / 60)).slice(-2);
+    }
+
+    static obtenerHoteles(now) {
+        const offset = now.getTimezoneOffset(), o = Math.abs(offset);
+        return (offset < 0 ? "+" : "-") + ("" + Math.floor(o / 60)).slice(-2);
+    }
+
+    static esTodos(valor) {
+        return valor === 'todos';
+    }
+
+    static filtrarTamanoHabitacion(valor, hoteles) {
+        if (this.esTodos(valor)) {
+            return hoteles;
+        }
+        if (valor === 'Hotel pequeño') {
+            return hoteles.filter(hotel => hotel.rooms <= HOTEL_HAB_PEQUENO);
+        }
+        if (valor === 'Hotel mediano') {
+            return hoteles.filter(hotel => hotel.rooms > HOTEL_HAB_PEQUENO && hotel.rooms < HOTEL_HAB_GRANDE);
+        }
+        if (valor === 'Hotel grande') {
+            return hoteles.filter(hotel => hotel.rooms >= HOTEL_HAB_GRANDE);
+        }
+    }
+
+    static filtrarPrecio(valor, hoteles) {
+        if (this.esTodos(valor)) {
+            return hoteles;
+        }
+        if (valor === 'PB') {
+            return hoteles.filter(hotel => hotel.price === 1);
+        }
+        if (valor === 'PM') {
+            return hoteles.filter(hotel => hotel.price === 2);
+        }
+        if (valor === 'PA') {
+            return hoteles.filter(hotel => hotel.price === 3);
+        }
+        if (valor === 'VIP') {
+            return hoteles.filter(hotel => hotel.price === 4);
+        }
+    }
+
+    static aplicarFiltros(opcion, valor, hoteles) {
+        switch (opcion) {
+            case 'pais':
+                return this.esTodos(valor) ? hoteles : hoteles.filter(hotel => hotel.country === valor);
+            case 'precio':
+                return this.filtrarPrecio(valor, hoteles);
+            case 'habitacion':
+                return this.filtrarTamanoHabitacion(valor, hoteles);
+            default:
+                return hoteles;
+        }
     }
 
     render() {

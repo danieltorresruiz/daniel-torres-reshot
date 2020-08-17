@@ -794,3 +794,11 @@ sup {
 .content-boton {
 	margin-bottom: 20px;
 }
+
+.c-pointer {
+	cursor: pointer;
+}
+
+.trash {
+	color: mistyrose !important;
+}
