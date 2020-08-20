@@ -5,7 +5,9 @@ import CardHotel from './cardhotel.js';
 import ListaHoteles from './listahoteles.js';
 import Footer from './footer.js';
 import Reservar from './reservar.js';
-import HeaderHotel from './headerhotel.js';
+import FotoHotel from './fotohotel.js';
+import NombreHotel from './nombrehotel.js';
+import DescripcionHotel from './descripcionhotel.js';
 import InfoPrincipalHotel from './infoprincipalhotel.js';
 
 class App extends React.Component {
@@ -21,7 +23,8 @@ class App extends React.Component {
       precio: '',
       habitacion: '',
       hoteles: [],
-      hotelesCompletos: []
+      hotelesCompletos: [],
+      filtros: null
     };
     this.handleFechaEntrada = this.handleFechaEntrada.bind(this);
     this.handleFechaSalida = this.handleFechaSalida.bind(this);
@@ -58,8 +61,7 @@ class App extends React.Component {
     if (this.state.fechaentrada) {
       this.validarFechaSalida(fechasalida, diasalida);
     } else {
-      
-    this.setState({ fechasalida, diasalida });
+      this.setState({ fechasalida, diasalida });
     }
   }
 
@@ -110,8 +112,14 @@ class App extends React.Component {
           />
           <ListaHoteles>
             <CardHotel hoteles={this.state.hoteles}
-              header={
-                <HeaderHotel />
+              foto={
+                <FotoHotel />
+              }
+              nombre={
+                <NombreHotel />
+              }
+              descripcion={
+                <DescripcionHotel />
               }
               principal={
                 <InfoPrincipalHotel />

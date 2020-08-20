@@ -36,7 +36,7 @@ class TituloHeader extends React.Component {
             case 'PB':
                 return 'Costo Bajo';
             case 'PM':
-                return 'Costo Promedio';
+                return 'Costo Medio';
             case 'PA':
                 return 'Costo Alto';
             case 'VIP':

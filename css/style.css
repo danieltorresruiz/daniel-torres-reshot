@@ -216,7 +216,12 @@ a img {
 ################################################################# */
 
 .nuevo-bordered {
-	border: 0.5px solid;
+	border: 0.5px solid silver;
+	border-radius: 5px;
+}
+
+.foto-bordered {
+	padding-top: 20px;
 }
 
 .simple-bordered {
@@ -225,9 +230,8 @@ a img {
 }
 
 .simple-bordered h4 {
-	padding: 10px;
 	color: #A79A74;
-	font-size: 16px;
+	font-size: 18px;
 }
 
 .services-bordered {
@@ -745,7 +749,6 @@ sup {
 	height: 260px;
 	width: 100%;
 	margin-bottom: 20px;
-	box-shadow: -3px 3px 2px -1px rgba(0, 0, 0, 0.4);
 }
 
 .descripcion-hotel {
@@ -792,7 +795,7 @@ sup {
 }
 
 .content-boton {
-	margin-bottom: 20px;
+	margin-bottom: 5px;
 }
 
 .c-pointer {
