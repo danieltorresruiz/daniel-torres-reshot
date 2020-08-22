@@ -9,22 +9,25 @@ import FotoHotel from './fotohotel.js';
 import NombreHotel from './nombrehotel.js';
 import DescripcionHotel from './descripcionhotel.js';
 import InfoPrincipalHotel from './infoprincipalhotel.js';
+import SinResultados from './sinresultados.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       titulo: 'Hoteles',
-      diaentrada: 'selecciona la fecha de entrada',
+      diaentrada: 'Selecciona la fecha de entrada',
       fechaentrada: '',
-      diasalida: 'selecciona la fecha de salida',
+      diasalida: 'Selecciona la fecha de salida',
       fechasalida: '',
-      pais: '',
-      precio: '',
-      habitacion: '',
       hoteles: [],
       hotelesCompletos: [],
-      filtros: null
+      esSinResultados: false,
+      filtros: {
+                pais: 'todos',
+                precio: 'todos',
+                habitacion: 'todos'
+              }
     };
     this.handleFechaEntrada = this.handleFechaEntrada.bind(this);
     this.handleFechaSalida = this.handleFechaSalida.bind(this);
@@ -49,7 +52,7 @@ class App extends React.Component {
   validarFechaEntrada(fechaentrada, diaentrada) {
     if (fechaentrada > this.state.fechasalida) {
       swal('La fecha de entrada no puede ser mayor a la fecha de salida.');
-      this.setState({ fechaentrada: '' });
+      this.setState({ fechaentrada: '', diaentrada: 'Selecciona la fecha de entrada' });
     } else {
       this.setState({ fechaentrada, diaentrada });
     }
@@ -68,7 +71,7 @@ class App extends React.Component {
   validarFechaSalida(fechasalida, diasalida) {
     if (fechasalida < this.state.fechaentrada) {
       swal('La fecha de salida no puede ser menor a la fecha de entrada.');
-      this.setState({ fechasalida: '' });
+      this.setState({ fechasalida: '', diasalida: 'Selecciona la fecha de salida' });
     } else {
       this.setState({ fechasalida, diasalida });
     }
@@ -80,14 +83,17 @@ class App extends React.Component {
   }
 
   actualizarHotelesFiltrados(opcion, valor,) {
-    const hoteles = Filtros.aplicarFiltros(opcion, valor, this.state.hoteles);
-    this.setState({ hoteles });
+    const filtros = this.state.filtros;
+    const hoteles = Filtros.aplicarFiltros(opcion, valor, this.state.hotelesCompletos, this.state.filtros);
+    const esSinResultados = hoteles.length === 0;
+    this.setState({ hoteles, filtros, esSinResultados });
   }
 
   recuperarHoteles() {
     const hotelesCompletos = ListaHoteles.obtenerListadoHoteles();
     const hoteles =  hotelesCompletos.map((h) => h);
-    this.setState({ hotelesCompletos, hoteles });
+    const filtros = { pais: 'todos', precio: 'todos', habitacion: 'todos' }
+    this.setState({ hotelesCompletos, hoteles, filtros });
   }
 
   render() {
@@ -100,15 +106,16 @@ class App extends React.Component {
             fechainicio={this.state.fechaentrada}
             diafin={this.state.diasalida}
             fechafin={this.state.fechasalida}
-            pais={this.state.pais}
-            precio={this.state.precio}
-            habitacion={this.state.habitacion}
+            pais={this.state.filtros.pais}
+            precio={this.state.filtros.precio}
+            habitacion={this.state.filtros.habitacion}
             eliminarFiltros={this.recuperarHoteles}
           />
           <Filtros 
             handleFechaEntrada={this.handleFechaEntrada}
             handleFechaSalida={this.handleFechaSalida}
             handleSelect={this.handleSelect}
+            filtros={this.state.filtros}
           />
           <ListaHoteles>
             <CardHotel hoteles={this.state.hoteles}
@@ -129,6 +136,9 @@ class App extends React.Component {
               }
             />
           </ListaHoteles>
+          {
+            this.state.esSinResultados ? <SinResultados /> : null
+          }
           <Footer />
         </Contenedor>
       </div>

@@ -63,17 +63,35 @@ class Filtros extends React.Component {
         }
     }
 
-    static aplicarFiltros(opcion, valor, hoteles) {
+    static aplicarFiltros(opcion, valor, hoteles, filtros) {
         switch (opcion) {
             case 'pais':
-                return this.esTodos(valor) ? hoteles : hoteles.filter(hotel => hotel.country === valor);
+                filtros.pais = valor;
+                break;
             case 'precio':
-                return this.filtrarPrecio(valor, hoteles);
+                filtros.precio = valor;
+                break;
             case 'habitacion':
-                return this.filtrarTamanoHabitacion(valor, hoteles);
+                filtros.habitacion = valor;
+                break;
             default:
-                return hoteles;
+                break;
         }
+        return this.filtrar(hoteles, filtros);
+    }
+
+    static filtrar(hoteles, filtros) {
+        let listaHoteles = [...hoteles];
+        if (filtros.pais) {
+            listaHoteles = this.esTodos(filtros.pais) ? listaHoteles : listaHoteles.filter(hotel => hotel.country === filtros.pais);
+        }
+        if (filtros.precio) {
+            listaHoteles = this.filtrarPrecio(filtros.precio, listaHoteles);
+        }
+        if (filtros.habitacion) {
+            listaHoteles = this.filtrarTamanoHabitacion(filtros.habitacion, listaHoteles);
+        }
+        return listaHoteles;
     }
 
     render() {
@@ -97,7 +115,7 @@ class Filtros extends React.Component {
                 <div class="input-icons">
                     <i class="fas fa-globe"></i>
                     <select id="pais" name="pais" class="form-control input-select"
-                        onChange={this.props.handleSelect}>
+                        onChange={this.props.handleSelect} value={this.props.filtros.pais}>
                         <option value="todos">Todos los países</option>
                         <option value="Argentina">Argentina</option>
                         <option value="Brasil">Brasil</option>
@@ -111,7 +129,7 @@ class Filtros extends React.Component {
                 <div class="input-icons">
                     <i class="fas fa-dollar-sign"></i>
                     <select id="precio" name="precio" class="form-control input-select"
-                        onChange={this.props.handleSelect}>
+                        onChange={this.props.handleSelect} value={this.props.filtros.precio}>
                         <option value="todos">Cualquier precio</option>
                         <option value="PB">$</option>
                         <option value="PM">$$</option>
@@ -124,7 +142,7 @@ class Filtros extends React.Component {
                 <div class="input-icons">
                     <i class="fas fa-bed"></i>
                     <select id="habitacion" name="habitacion" class="form-control input-select2"
-                        onChange={this.props.handleSelect}>
+                        onChange={this.props.handleSelect} value={this.props.filtros.habitacion}>
                         <option value="todos">Cualquier tamaño</option>
                         <option value="Hotel pequeño">Hotel pequeño</option>
                         <option value="Hotel mediano">Hotel mediano</option>

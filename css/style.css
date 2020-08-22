@@ -695,11 +695,10 @@ sup {
 	color: #fffff1;
 }
 
-
 .titulo-footer {
 	padding-bottom: 20px;
 	padding-left: 30px;
-}
+}	
 
 .fondo-fitros {
 	background-color: #a0cdf3;
@@ -802,6 +801,6 @@ sup {
 	cursor: pointer;
 }
 
-.trash {
-	color: mistyrose !important;
+.subtitulo {
+	color: #f7f7f7 !important;
 }
