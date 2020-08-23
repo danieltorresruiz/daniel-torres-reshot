@@ -107,23 +107,20 @@ class Filtros extends React.Component {
         let listaHoteles = [...hoteles];
         if (filtros.feentrada) {
             listaHoteles = listaHoteles.filter(hotel => {
-                return this.validarDisponiblidad(filtros.feentrada.valueOf(), hotel.availabilityFrom, true);
+                return this.validarDisponiblidad(filtros.feentrada.valueOf(), hotel.availabilityFrom);
             });
         }
         if (filtros.fesalida) {
             listaHoteles = listaHoteles.filter(hotel => {
-                return this.validarDisponiblidad(filtros.fesalida.valueOf(), hotel.availabilityTo, false);
+                return this.validarDisponiblidad(filtros.fesalida.valueOf(), hotel.availabilityTo);
             });
         }
         return listaHoteles;
     }
 
-    static validarDisponiblidad(fecha, availability, porEntrada) {
+    static validarDisponiblidad(fecha, availability) {
         const fechaSeleccionaba = this.obtenerFechaYYYYMMDD(fecha);
         const fechaHotel = this.obtenerFechaYYYYMMDD(availability);
-        if (fechaSeleccionaba >= fechaHotel) {
-            console.log('porEntrada: ' + porEntrada + ' - fechaSeleccionaba: ' + fechaSeleccionaba + ' - fechaHotel: ' + fechaHotel);
-        }
         return fechaSeleccionaba >= fechaHotel;
     }
 
@@ -133,14 +130,14 @@ class Filtros extends React.Component {
             <div class="form-group col-md-3">
                 <div class="input-icons">
                     <i class="fas fa-share"></i>
-                    <input class="form-control input-field" type="date"
-                        onChange={this.props.handleFechaEntrada}/>  
+                    <input id="infeentrada" class="form-control input-field" type="date"
+                        onChange={this.props.handleFechaEntrada} />  
                 </div>
             </div>
             <div class="form-group col-md-3">
                 <div class="input-icons">
                     <i class="fas fa-reply"></i>
-                    <input class="form-control input-field" type="date"
+                    <input id="infesalida" class="form-control input-field" type="date"
                         onChange={this.props.handleFechaSalida}/>  
                 </div>
             </div>

@@ -1,6 +1,6 @@
   const NombreHotel = (props) => {
         return (
-          <h4>{props.hotel.name}</h4>
+          <h4 class="margen-card">{props.hotel.name}</h4>
         );
   };
 

@@ -758,6 +758,11 @@ sup {
 	font-size: 0.9rem;
 	font-family: 'Roboto Slab',Arial,sans-serif;
 	margin-right: 25px;
+	text-align: justify;
+}
+
+.margen-card {
+	margin-left: 15px;
 }
 
 .mt1-padding {

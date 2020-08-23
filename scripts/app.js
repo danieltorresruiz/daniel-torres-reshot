@@ -114,8 +114,13 @@ class App extends React.Component {
     const filtros = { pais: 'todos', precio: 'todos', habitacion: 'todos' }
     const cantidadBusqueda = hoteles.length;
     this.setState({ hotelesCompletos, hoteles, filtros, cantidadBusqueda });
+    this.limpiarPorId('infeentrada');
+    this.limpiarPorId('infesalida');
   }
 
+  limpiarPorId(campo) {
+    document.getElementById(campo).value = '';
+  }
   render() {
     return (
       <div>

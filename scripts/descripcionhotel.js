@@ -1,6 +1,6 @@
   const DescripcionHotel = (props) => {
         return (
-            <p class="descripcion-hotel">{props.hotel.description}</p>
+            <p class="descripcion-hotel margen-card">{props.hotel.description}</p>
         );
   };
 
