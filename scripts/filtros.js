@@ -94,6 +94,39 @@ class Filtros extends React.Component {
         return listaHoteles;
     }
 
+    static obtenerFechaYYYYMMDD(timeDate) {
+        const feentrada = new Date(timeDate);
+        const anio = feentrada.getFullYear();
+        const month = feentrada.getMonth() + 1;
+        const mes = month < 10 ? '0'+month : month;
+        const dia = feentrada.getDate() < 10 ? '0'+feentrada.getDate() : feentrada.getDate();
+        return anio+''+mes+''+dia;
+    }
+
+    static aplicarFiltrosDeFecha(hoteles, filtros) {
+        let listaHoteles = [...hoteles];
+        if (filtros.feentrada) {
+            listaHoteles = listaHoteles.filter(hotel => {
+                return this.validarDisponiblidad(filtros.feentrada.valueOf(), hotel.availabilityFrom, true);
+            });
+        }
+        if (filtros.fesalida) {
+            listaHoteles = listaHoteles.filter(hotel => {
+                return this.validarDisponiblidad(filtros.fesalida.valueOf(), hotel.availabilityTo, false);
+            });
+        }
+        return listaHoteles;
+    }
+
+    static validarDisponiblidad(fecha, availability, porEntrada) {
+        const fechaSeleccionaba = this.obtenerFechaYYYYMMDD(fecha);
+        const fechaHotel = this.obtenerFechaYYYYMMDD(availability);
+        if (fechaSeleccionaba >= fechaHotel) {
+            console.log('porEntrada: ' + porEntrada + ' - fechaSeleccionaba: ' + fechaSeleccionaba + ' - fechaHotel: ' + fechaHotel);
+        }
+        return fechaSeleccionaba >= fechaHotel;
+    }
+
     render() {
       return (
         <div id="filters" class="row fondo-fitros"> 

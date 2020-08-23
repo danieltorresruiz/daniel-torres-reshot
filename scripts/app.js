@@ -22,11 +22,13 @@ class App extends React.Component {
       fechasalida: '',
       hoteles: [],
       hotelesCompletos: [],
-      esSinResultados: false,
+      cantidadBusqueda: 0,
       filtros: {
                 pais: 'todos',
                 precio: 'todos',
-                habitacion: 'todos'
+                habitacion: 'todos',
+                feentrada: null,
+                fesalida: null
               }
     };
     this.handleFechaEntrada = this.handleFechaEntrada.bind(this);
@@ -39,32 +41,48 @@ class App extends React.Component {
     this.recuperarHoteles();
   }
 
+  setFechaEntrada(fechaentrada, diaentrada) {
+    const filtros = this.state.filtros;
+    filtros.feentrada = fechaentrada !== '' ? fechaentrada : null;
+    const hoteles = Filtros.aplicarFiltrosDeFecha(this.state.hotelesCompletos, filtros);
+    const cantidadBusqueda = hoteles.length;
+    this.setState({ fechaentrada, diaentrada, filtros, hoteles, cantidadBusqueda });
+  }
+
   handleFechaEntrada(e) {
     const fechaentrada = Filtros.obtenerFechaZonaHoraria(e.target.value);
-    const diaentrada = TituloHeader.obtenerDiaEspanol("desde el ", fechaentrada);
+    const diaentrada = TituloHeader.obtenerDiaEspanol('desde el ', fechaentrada);
     if (this.state.fechasalida) {
       this.validarFechaEntrada(fechaentrada, diaentrada);
     } else {
-      this.setState({ fechaentrada, diaentrada });
+      this.setFechaEntrada(fechaentrada, diaentrada);
     }
   }
 
   validarFechaEntrada(fechaentrada, diaentrada) {
     if (fechaentrada > this.state.fechasalida) {
       swal('La fecha de entrada no puede ser mayor a la fecha de salida.');
-      this.setState({ fechaentrada: '', diaentrada: 'Selecciona la fecha de entrada' });
+      this.setFechaEntrada('', 'Selecciona la fecha de entrada');
     } else {
-      this.setState({ fechaentrada, diaentrada });
+      this.setFechaEntrada(fechaentrada, diaentrada);
     }
+  }
+
+  setFechaSalida(fechasalida, diasalida) {
+    const filtros = this.state.filtros;
+    filtros.fesalida = fechasalida !== '' ? fechasalida : null;
+    const hoteles = Filtros.aplicarFiltrosDeFecha(this.state.hotelesCompletos, filtros);
+    const cantidadBusqueda = hoteles.length;
+    this.setState({ fechasalida, diasalida, filtros, hoteles, cantidadBusqueda });
   }
 
   handleFechaSalida(e) {
     const fechasalida = Filtros.obtenerFechaZonaHoraria(e.target.value);
-    const diasalida = TituloHeader.obtenerDiaEspanol("hasta el ", fechasalida);
+    const diasalida = TituloHeader.obtenerDiaEspanol('hasta el ', fechasalida);
     if (this.state.fechaentrada) {
       this.validarFechaSalida(fechasalida, diasalida);
     } else {
-      this.setState({ fechasalida, diasalida });
+      this.setFechaSalida(fechasalida, diasalida);
     }
   }
 
@@ -72,8 +90,9 @@ class App extends React.Component {
     if (fechasalida < this.state.fechaentrada) {
       swal('La fecha de salida no puede ser menor a la fecha de entrada.');
       this.setState({ fechasalida: '', diasalida: 'Selecciona la fecha de salida' });
+      this.setFechaSalida('', 'Selecciona la fecha de entrada');
     } else {
-      this.setState({ fechasalida, diasalida });
+      this.setFechaSalida(fechasalida, diasalida);
     }
   }
 
@@ -85,15 +104,16 @@ class App extends React.Component {
   actualizarHotelesFiltrados(opcion, valor,) {
     const filtros = this.state.filtros;
     const hoteles = Filtros.aplicarFiltros(opcion, valor, this.state.hotelesCompletos, this.state.filtros);
-    const esSinResultados = hoteles.length === 0;
-    this.setState({ hoteles, filtros, esSinResultados });
+    const cantidadBusqueda = hoteles.length;
+    this.setState({ hoteles, filtros, cantidadBusqueda });
   }
 
   recuperarHoteles() {
     const hotelesCompletos = ListaHoteles.obtenerListadoHoteles();
     const hoteles =  hotelesCompletos.map((h) => h);
     const filtros = { pais: 'todos', precio: 'todos', habitacion: 'todos' }
-    this.setState({ hotelesCompletos, hoteles, filtros });
+    const cantidadBusqueda = hoteles.length;
+    this.setState({ hotelesCompletos, hoteles, filtros, cantidadBusqueda });
   }
 
   render() {
@@ -110,6 +130,7 @@ class App extends React.Component {
             precio={this.state.filtros.precio}
             habitacion={this.state.filtros.habitacion}
             eliminarFiltros={this.recuperarHoteles}
+            cantidadHoteles={this.state.cantidadBusqueda}
           />
           <Filtros 
             handleFechaEntrada={this.handleFechaEntrada}
@@ -137,7 +158,7 @@ class App extends React.Component {
             />
           </ListaHoteles>
           {
-            this.state.esSinResultados ? <SinResultados /> : null
+            this.state.cantidadBusqueda === 0 ? <SinResultados /> : null
           }
           <Footer />
         </Contenedor>

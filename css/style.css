@@ -686,9 +686,12 @@ sup {
 ################################################################# */
 
 .titulo-header {
-	background-color: #00d1b2;
 	padding-top: 30px;
-	padding-bottom: 20px;
+}
+
+.titulo-color {
+	background-color: #00d1b2;
+	padding-bottom: 16px;
 }
 
 .texto-dias {
