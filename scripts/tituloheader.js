@@ -16,8 +16,9 @@ class TituloHeader extends React.Component {
         return prefijo + DIAS_SEMANA[index] + ",";
     }
 
-    obtenerFecha(fechaDate) {
-        if (fechaDate !== '') {
+    obtenerFecha(fechaDate, dia) {
+        const sinDia = dia.toLowerCase().includes('selecciona');
+        if (!sinDia && fechaDate !== '') {
             const options = { year: 'numeric', month: 'long', day: 'numeric' }
             const fecha = fechaDate.toLocaleDateString("es-ES", options);
             return <b>{fecha}</b>;
@@ -78,11 +79,11 @@ class TituloHeader extends React.Component {
                 </div>
             </div>
             <div class="row titulo-color">
-                <div class="col-lg-3 col-md-3 texto-dias">
-                    {this.props.diainicio} {this.obtenerFecha(this.props.fechainicio)}
+                <div id="divfeentrada" class="col-lg-3 col-md-3 texto-dias">
+                    {this.props.diainicio} {this.obtenerFecha(this.props.fechainicio, this.props.diainicio)}
                 </div>
-                <div class="col-lg-3 col-md-3 texto-dias">
-                    {this.props.diafin} {this.obtenerFecha(this.props.fechafin)}
+                <div id="divfesalida" class="col-lg-3 col-md-3 texto-dias">
+                    {this.props.diafin} {this.obtenerFecha(this.props.fechafin, this.props.diafin)}
                 </div>
                 <div class="col-lg-2 col-md-2 fs1">{pais}</div>
                 <div class="col-lg-2 col-md-2 fs1">{precio}</div>

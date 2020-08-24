@@ -111,9 +111,12 @@ class App extends React.Component {
   recuperarHoteles() {
     const hotelesCompletos = ListaHoteles.obtenerListadoHoteles();
     const hoteles =  hotelesCompletos.map((h) => h);
-    const filtros = { pais: 'todos', precio: 'todos', habitacion: 'todos' }
     const cantidadBusqueda = hoteles.length;
-    this.setState({ hotelesCompletos, hoteles, filtros, cantidadBusqueda });
+    const filtros = { pais: 'todos', precio: 'todos', habitacion: 'todos', feentrada: null, fesalida: null }
+    const diaentrada = 'Selecciona la fecha de entrada';
+    const diasalida = 'Selecciona la fecha de salida';
+
+    this.setState({ hotelesCompletos, hoteles, filtros, cantidadBusqueda, diaentrada, diasalida });
     this.limpiarPorId('infeentrada');
     this.limpiarPorId('infesalida');
   }
