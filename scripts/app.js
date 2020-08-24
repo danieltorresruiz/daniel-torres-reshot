@@ -44,7 +44,7 @@ class App extends React.Component {
   setFechaEntrada(fechaentrada, diaentrada) {
     const filtros = this.state.filtros;
     filtros.feentrada = fechaentrada !== '' ? fechaentrada : null;
-    const hoteles = Filtros.aplicarFiltrosDeFecha(this.state.hotelesCompletos, filtros);
+    const hoteles = Filtros.aplicarFiltrosConFecha(this.state.hotelesCompletos, filtros);
     const cantidadBusqueda = hoteles.length;
     this.setState({ fechaentrada, diaentrada, filtros, hoteles, cantidadBusqueda });
   }
@@ -71,7 +71,7 @@ class App extends React.Component {
   setFechaSalida(fechasalida, diasalida) {
     const filtros = this.state.filtros;
     filtros.fesalida = fechasalida !== '' ? fechasalida : null;
-    const hoteles = Filtros.aplicarFiltrosDeFecha(this.state.hotelesCompletos, filtros);
+    const hoteles = Filtros.aplicarFiltrosConFecha(this.state.hotelesCompletos, filtros);
     const cantidadBusqueda = hoteles.length;
     this.setState({ fechasalida, diasalida, filtros, hoteles, cantidadBusqueda });
   }
@@ -121,6 +121,8 @@ class App extends React.Component {
   limpiarPorId(campo) {
     document.getElementById(campo).value = '';
   }
+
+  //REACT RENDER
   render() {
     return (
       <div>

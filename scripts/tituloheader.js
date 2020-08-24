@@ -46,40 +46,47 @@ class TituloHeader extends React.Component {
         }
     }
 
-    getPrecio(precio) {
+    obtenerPrecio(precio) {
         const costo = this.traducirACosto(precio);
-        return costo !== '' ? 'Precio: '.concat(costo) : '';
+        return costo !== '' ? 'Po: '.concat(costo) : '';
     }
 
+    //REACT RENDER
     render() {
-      const pais = this.esValido(this.props.pais) ? 'País: '.concat(this.props.pais) : '';
-      const precio = this.props.precio ? this.getPrecio(this.props.precio) : '';
+      const pais = this.esValido(this.props.pais) ? 'Ps: '.concat(this.props.pais) : '';
+      const precio = this.props.precio ? this.obtenerPrecio(this.props.precio) : '';
       const habitacion = this.props.habitacion && this.props.habitacion !== 'todos'
-                            ? 'Tamaño: '.concat(this.props.habitacion) : '';
+                            ? 'To: '.concat(this.props.habitacion) : '';
+      const diainicio = null;
       return (
         <div class="presentation">
             <div class="row titulo-header titulo-color"> 
                 <div class="col-lg-4 col-md-4">
                     <h3>{this.props.titulo}</h3>
                 </div>
-                <div class="col-lg-4 col-md-4 texto-dias">
-                    {this.props.diainicio} {this.obtenerFecha(this.props.fechainicio)}
-                </div>
-                <div class="col-lg-4 col-md-4 texto-dias">
-                    {this.props.diafin} {this.obtenerFecha(this.props.fechafin)}
-                </div>
-            </div>
-            <div class="row titulo-color">
-                <div class="col-lg-4 col-md-4 texto-dias">
+                <div class="col-lg-2 col-md-2 blanco">
                     <a class="subtitulo c-pointer" onClick={this.props.eliminarFiltros}>
                         <i class="far fa-trash-alt" title="Eliminar Filtros"></i>
                     </a>
+                    <span> Eliminar Filtros</span>
+                </div>
+                <div class="col-lg-3 col-md-3 blanco">
                     <span> Hay {this.props.cantidadHoteles} hoteles disponibles</span>
                 </div>
-                
-                <div class="col-lg-2 col-md-2 texto-dias subtitulo">{pais}</div>
-                <div class="col-lg-2 col-md-2 texto-dias subtitulo">{precio}</div>
-                <div class="col-lg-4 col-md-4 texto-dias subtitulo">{habitacion}</div>
+                <div class="col-lg-3 col-md-3 fs2">
+                    <span class="abrev-right">* Ps (País) | Po (Precio) | To (Tamaño)</span>
+                </div>
+            </div>
+            <div class="row titulo-color">
+                <div class="col-lg-3 col-md-3 texto-dias">
+                    {this.props.diainicio} {this.obtenerFecha(this.props.fechainicio)}
+                </div>
+                <div class="col-lg-3 col-md-3 texto-dias">
+                    {this.props.diafin} {this.obtenerFecha(this.props.fechafin)}
+                </div>
+                <div class="col-lg-2 col-md-2 fs1">{pais}</div>
+                <div class="col-lg-2 col-md-2 fs1">{precio}</div>
+                <div class="col-lg-2 col-md-2 fs1">{habitacion}</div>
             </div>
         </div>
       ); 

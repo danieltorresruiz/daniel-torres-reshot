@@ -1,3 +1,9 @@
+/**
+ * Tamaño Hotel =>
+ *      Pequeño hasta 10 habitaciones
+ *      Mediano entre 10 y 25 habitaciones
+ *      Grande mas de 25 habitaciones
+ */
 const HOTEL_HAB_PEQUENO = 10;
 const HOTEL_HAB_GRANDE = 25;
 class Filtros extends React.Component {
@@ -21,10 +27,18 @@ class Filtros extends React.Component {
         return (offset < 0 ? "+" : "-") + ("" + Math.floor(o / 60)).slice(-2);
     }
 
-    static obtenerHoteles(now) {
-        const offset = now.getTimezoneOffset(), o = Math.abs(offset);
-        return (offset < 0 ? "+" : "-") + ("" + Math.floor(o / 60)).slice(-2);
+    static obtenerFechaYYYYMMDD(timeDate) {
+        const feentrada = new Date(timeDate);
+        const anio = feentrada.getFullYear();
+        const month = feentrada.getMonth() + 1;
+        const mes = month < 10 ? '0'+month : month;
+        const dia = feentrada.getDate() < 10 ? '0'+feentrada.getDate() : feentrada.getDate();
+        return anio+''+mes+''+dia;
     }
+
+    /*********************************************************************************
+     *********** Bloque métodos de Filtrar *******************************************
+     *********************************************************************************/
 
     static esTodos(valor) {
         return valor === 'todos';
@@ -49,20 +63,20 @@ class Filtros extends React.Component {
         if (this.esTodos(valor)) {
             return hoteles;
         }
-        if (valor === 'PB') {
-            return hoteles.filter(hotel => hotel.price === 1);
-        }
-        if (valor === 'PM') {
-            return hoteles.filter(hotel => hotel.price === 2);
-        }
-        if (valor === 'PA') {
-            return hoteles.filter(hotel => hotel.price === 3);
-        }
-        if (valor === 'VIP') {
-            return hoteles.filter(hotel => hotel.price === 4);
-        }
+        const listaPrice = ['PB', 'PM', 'PA', 'VIP'];
+        const priceIndex = listaPrice.findIndex(p => p === valor) + 1; 
+        return hoteles.filter(hotel => hotel.price === priceIndex);
     }
 
+    static validarDisponiblidad(fecha, availability) {
+        const fechaSeleccionaba = this.obtenerFechaYYYYMMDD(fecha);
+        const fechaHotel = this.obtenerFechaYYYYMMDD(availability);
+        return fechaSeleccionaba >= fechaHotel;
+    }
+
+    /**
+     * método que aplica para búsqueda con los input de select
+     */
     static aplicarFiltros(opcion, valor, hoteles, filtros) {
         switch (opcion) {
             case 'pais':
@@ -77,9 +91,30 @@ class Filtros extends React.Component {
             default:
                 break;
         }
-        return this.filtrar(hoteles, filtros);
+        return this.aplicarFiltrosConFecha(hoteles, filtros);
     }
 
+    /**
+     * método que aplica para búsqueda con los input date antes del filtrado final de los listados
+     */
+    static aplicarFiltrosConFecha(hoteles, filtros) {
+        let listaHoteles = [...hoteles];
+        if (filtros.feentrada) {
+            listaHoteles = listaHoteles.filter(hotel => {
+                                return this.validarDisponiblidad(filtros.feentrada.valueOf(), hotel.availabilityFrom);
+                             });
+        }
+        if (filtros.fesalida) {
+            listaHoteles = listaHoteles.filter(hotel => {
+                                return this.validarDisponiblidad(filtros.fesalida.valueOf(), hotel.availabilityTo);
+                            });
+        }
+        return this.filtrar(listaHoteles, filtros);
+    }
+
+    /**
+     * método que aplica la búsqueda con valores de los listados
+     */
     static filtrar(hoteles, filtros) {
         let listaHoteles = [...hoteles];
         if (filtros.pais) {
@@ -92,36 +127,6 @@ class Filtros extends React.Component {
             listaHoteles = this.filtrarTamanoHabitacion(filtros.habitacion, listaHoteles);
         }
         return listaHoteles;
-    }
-
-    static obtenerFechaYYYYMMDD(timeDate) {
-        const feentrada = new Date(timeDate);
-        const anio = feentrada.getFullYear();
-        const month = feentrada.getMonth() + 1;
-        const mes = month < 10 ? '0'+month : month;
-        const dia = feentrada.getDate() < 10 ? '0'+feentrada.getDate() : feentrada.getDate();
-        return anio+''+mes+''+dia;
-    }
-
-    static aplicarFiltrosDeFecha(hoteles, filtros) {
-        let listaHoteles = [...hoteles];
-        if (filtros.feentrada) {
-            listaHoteles = listaHoteles.filter(hotel => {
-                return this.validarDisponiblidad(filtros.feentrada.valueOf(), hotel.availabilityFrom);
-            });
-        }
-        if (filtros.fesalida) {
-            listaHoteles = listaHoteles.filter(hotel => {
-                return this.validarDisponiblidad(filtros.fesalida.valueOf(), hotel.availabilityTo);
-            });
-        }
-        return listaHoteles;
-    }
-
-    static validarDisponiblidad(fecha, availability) {
-        const fechaSeleccionaba = this.obtenerFechaYYYYMMDD(fecha);
-        const fechaHotel = this.obtenerFechaYYYYMMDD(availability);
-        return fechaSeleccionaba >= fechaHotel;
     }
 
     render() {

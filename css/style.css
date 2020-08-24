@@ -689,13 +689,32 @@ sup {
 	padding-top: 30px;
 }
 
+.blanco {
+	color: white;
+}
+
 .titulo-color {
 	background-color: #00d1b2;
 	padding-bottom: 16px;
 }
 
 .texto-dias {
-	color: #fffff1;
+	color: white;
+	font-size: 0.8rem;
+}
+
+.abrev-right {
+	text-align: right;
+}
+
+.fs1 {
+	color: white;
+	font-size: 1.0rem;
+}
+
+.fs2 {
+	color: white;
+	font-size: 0.9rem;
 }
 
 .titulo-footer {
@@ -807,8 +826,4 @@ sup {
 
 .c-pointer {
 	cursor: pointer;
-}
-
-.subtitulo {
-	color: #f7f7f7 !important;
 }
