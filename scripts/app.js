@@ -62,6 +62,7 @@ class App extends React.Component {
   validarFechaEntrada(fechaentrada, diaentrada) {
     if (fechaentrada > this.state.fechasalida) {
       swal('La fecha de entrada no puede ser mayor a la fecha de salida.');
+      this.limpiarPorId('infeentrada');
       this.setFechaEntrada('', 'Selecciona la fecha de entrada');
     } else {
       this.setFechaEntrada(fechaentrada, diaentrada);
@@ -89,7 +90,7 @@ class App extends React.Component {
   validarFechaSalida(fechasalida, diasalida) {
     if (fechasalida < this.state.fechaentrada) {
       swal('La fecha de salida no puede ser menor a la fecha de entrada.');
-      this.setState({ fechasalida: '', diasalida: 'Selecciona la fecha de salida' });
+      this.limpiarPorId('infesalida');
       this.setFechaSalida('', 'Selecciona la fecha de entrada');
     } else {
       this.setFechaSalida(fechasalida, diasalida);

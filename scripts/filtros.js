@@ -6,9 +6,15 @@
  */
 const HOTEL_HAB_PEQUENO = 10;
 const HOTEL_HAB_GRANDE = 25;
+const PRECIOS = ['PB', 'PM', 'PA', 'VIP'];
 class Filtros extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            paises: ['todos', 'Argentina', 'Brasil', 'Chile', 'Uruguay', 'Colombia'],
+            precios: ['todos', 'PB', 'PM', 'PA', 'VIP'],
+            habitacion: ['todos', 'Hotel pequeño', 'Hotel mediano', 'Hotel grande']
+        }
     }
 
     static obtenerFechaZonaHoraria(fechaInput) {
@@ -63,15 +69,20 @@ class Filtros extends React.Component {
         if (this.esTodos(valor)) {
             return hoteles;
         }
-        const listaPrice = ['PB', 'PM', 'PA', 'VIP'];
-        const priceIndex = listaPrice.findIndex(p => p === valor) + 1; 
+        const priceIndex = PRECIOS.findIndex(p => p === valor) + 1; 
         return hoteles.filter(hotel => hotel.price === priceIndex);
     }
 
-    static validarDisponiblidad(fecha, availability) {
+    static validarDisponiblidadEntrada(fecha, availability) {
         const fechaSeleccionaba = this.obtenerFechaYYYYMMDD(fecha);
         const fechaHotel = this.obtenerFechaYYYYMMDD(availability);
         return fechaSeleccionaba >= fechaHotel;
+    }
+
+    static validarDisponiblidadSalida(fecha, availability, ) {
+        const fechaSeleccionaba = this.obtenerFechaYYYYMMDD(fecha);
+        const fechaHotel = this.obtenerFechaYYYYMMDD(availability);
+        return fechaSeleccionaba <= fechaHotel;
     }
 
     /**
@@ -95,19 +106,19 @@ class Filtros extends React.Component {
     }
 
     /**
-     * método que aplica para búsqueda con los input date antes del filtrado final de los listados
+     * método para búsqueda con los input date antes del filtrado final de los tipo lista
      */
     static aplicarFiltrosConFecha(hoteles, filtros) {
         let listaHoteles = [...hoteles];
         if (filtros.feentrada) {
             listaHoteles = listaHoteles.filter(hotel => {
-                                return this.validarDisponiblidad(filtros.feentrada.valueOf(), hotel.availabilityFrom);
-                             });
+                                return this.validarDisponiblidadEntrada(filtros.feentrada.valueOf(), hotel.availabilityFrom);
+                            });
         }
         if (filtros.fesalida) {
             listaHoteles = listaHoteles.filter(hotel => {
-                                return this.validarDisponiblidad(filtros.fesalida.valueOf(), hotel.availabilityTo);
-                            });
+                                return this.validarDisponiblidadSalida(filtros.fesalida.valueOf(), hotel.availabilityTo);
+                           });
         }
         return this.filtrar(listaHoteles, filtros);
     }
@@ -127,6 +138,48 @@ class Filtros extends React.Component {
             listaHoteles = this.filtrarTamanoHabitacion(filtros.habitacion, listaHoteles);
         }
         return listaHoteles;
+    }
+
+    /**
+     * método que aplica la búsqueda con valores de los listados
+     */
+    InputLista(nombre) {
+        let estilo = 'form-control input-select';
+        let todos, filtro, opciones;
+        switch (nombre) {
+            case 'pais':
+                todos = 'Todos los países';
+                filtro = this.props.filtros.pais;
+                opciones = this.state.paises;
+                break;
+            case 'precio':
+                todos = 'Cualquier precio';
+                filtro = this.props.filtros.precio;
+                opciones = this.state.precios;
+                break;
+            case 'habitacion':
+                todos = 'Cualquier tamaño';
+                filtro = this.props.filtros.habitacion;
+                opciones = this.state.habitacion;
+                estilo = estilo.concat('2');
+                break;
+            default:
+                break;
+        }
+        return (
+            <select id={nombre} name={nombre} class={estilo}
+                    onChange={this.props.handleSelect} value={filtro}>
+                    {
+                        opciones.map(opcion =>
+                            <option value={opcion}>{this.nombreOpcion(opcion, todos)}</option>
+                        )
+                    }
+            </select>
+        );
+    }
+
+    nombreOpcion(opcion, todos) {
+        return opcion === 'todos' ? todos : opcion;
     }
 
     render() {
@@ -149,40 +202,19 @@ class Filtros extends React.Component {
             <div class="form-group col-md-2">
                 <div class="input-icons">
                     <i class="fas fa-globe"></i>
-                    <select id="pais" name="pais" class="form-control input-select"
-                        onChange={this.props.handleSelect} value={this.props.filtros.pais}>
-                        <option value="todos">Todos los países</option>
-                        <option value="Argentina">Argentina</option>
-                        <option value="Brasil">Brasil</option>
-                        <option value="Chile">Chile</option>
-                        <option value="Uruguay">Uruguay</option>
-                        <option value="Colombia">Colombia</option>
-                    </select>
+                    { this.InputLista('pais') }
                 </div>
             </div>
             <div class="form-group col-md-2">
                 <div class="input-icons">
                     <i class="fas fa-dollar-sign"></i>
-                    <select id="precio" name="precio" class="form-control input-select"
-                        onChange={this.props.handleSelect} value={this.props.filtros.precio}>
-                        <option value="todos">Cualquier precio</option>
-                        <option value="PB">$</option>
-                        <option value="PM">$$</option>
-                        <option value="PA">$$$</option>
-                        <option value="VIP">$$$$</option>
-                    </select>
+                    { this.InputLista('precio') }
                 </div>
             </div>
             <div class="form-group col-md-2">
                 <div class="input-icons">
                     <i class="fas fa-bed"></i>
-                    <select id="habitacion" name="habitacion" class="form-control input-select2"
-                        onChange={this.props.handleSelect} value={this.props.filtros.habitacion}>
-                        <option value="todos">Cualquier tamaño</option>
-                        <option value="Hotel pequeño">Hotel pequeño</option>
-                        <option value="Hotel mediano">Hotel mediano</option>
-                        <option value="Hotel grande">Hotel grande</option>
-                    </select>
+                    { this.InputLista('habitacion') }
                 </div>
               </div>      
         </div> 
